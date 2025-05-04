@@ -1,4 +1,4 @@
-# Usar una imagen base con OpenJDK 17 y Maven
+# Usar una imagen base con Maven y OpenJDK
 FROM maven:latest
 
 # Definir directorio de trabajo dentro del contenedor
@@ -7,8 +7,11 @@ WORKDIR /app
 # Copiar los archivos del proyecto al contenedor
 COPY . /app
 
-# Asegurarse de que mvnw tenga permisos de ejecución
-RUN find . -name mvnw -exec chmod +x {} \;
+# Verificar los archivos copiados en el contenedor
+RUN ls -l /app
+
+# Dar permisos de ejecución al archivo mvnw
+RUN chmod +x mvnw
 
 # Instalar dependencias con mvnw
 RUN ./mvnw clean install -DskipTests

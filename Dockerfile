@@ -4,8 +4,13 @@ FROM openjdk:17-jdk-slim
 # Definir directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Descargar GraphHopper y las dependencias necesarias
+# Copiar los archivos del proyecto al contenedor
 COPY . /app
+
+# Dar permisos de ejecución al archivo mvnw
+RUN chmod +x mvnw
+
+# Instalar dependencias con mvnw
 RUN ./mvnw clean install -DskipTests
 
 # Exponer el puerto que usará GraphHopper

@@ -1,5 +1,5 @@
-# Usar una imagen base con Java
-FROM openjdk:17-jdk-slim
+# Usar una imagen base con OpenJDK 17 y Maven
+FROM maven:latest
 
 # Definir directorio de trabajo dentro del contenedor
 WORKDIR /app
@@ -7,8 +7,8 @@ WORKDIR /app
 # Copiar los archivos del proyecto al contenedor
 COPY . /app
 
-# Dar permisos de ejecución al archivo mvnw
-RUN chmod +x mvnw
+# Asegurarse de que mvnw tenga permisos de ejecución
+RUN find . -name mvnw -exec chmod +x {} \;
 
 # Instalar dependencias con mvnw
 RUN ./mvnw clean install -DskipTests
